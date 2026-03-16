@@ -5,11 +5,11 @@ public abstract class Person {
     private String email;
 
 
-    // Define fields in constructor
+    // Define fields in constructor using setter methods
     Person(String name, String id, String email){
-        this.name = name;
-        this.id = id;
-        this.email = email;
+        setName(name);
+        setId(id);
+        setEmail(email);
     }
 
     // Getter methods
