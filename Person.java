@@ -48,4 +48,7 @@ public abstract class Person {
         }
         this.email = email;
     }
+
+    // Abstract method will be implemented in subclasses
+    public abstract String getDetails();
 }
