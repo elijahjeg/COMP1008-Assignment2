@@ -39,7 +39,7 @@ public abstract class Person {
             throw new IllegalArgumentException("ID must match the the following format: 'S-1234'");
         }
         this.id = id;
-    }
+    } 
 
     void setEmail(String email){
         // This pattern matches email name and domain name ensuring a . is used
