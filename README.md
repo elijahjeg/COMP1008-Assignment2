@@ -5,7 +5,7 @@ This project focuses on implementing a management system for student courses. Wh
 
 When the program is ran, the user can choose from the following options:
 1. Add a new student
-2.  Remove a student by ID
+2. Remove a student by ID
 3. Display all students
 4. Search a student by ID or name
 5. Add a course to a student's courses
@@ -20,6 +20,7 @@ To remove a student, the user must provide a valid student ID (S-XXXX). If the s
 
 ### Displaying all students
 This option will display a list of all students currently in the system, along with their details such as name, student ID, email, and courses.
+Each student will be sorted alphabetically by their name for easy viewing. Courses will also be sorted alphabetically for each student.
 
 ### Searching a student by ID or name
 Users can search for a student by providing either their student ID or name. The system will return the details of the student if found, or an appropriate message if the student does not exist.

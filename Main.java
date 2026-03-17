@@ -60,7 +60,18 @@ class Main {
                         System.out.println("------------");
                         System.out.println(userStudent.getDetails());
 
-                        studentList.add(userStudent);
+                        // Sort the studentList alphabetically
+                        boolean added = false;
+                        for (int i = 0; i < studentList.size(); i++){
+                            if (studentList.get(i).getName().compareTo(userStudent.getName()) > 0){ // Above zero, after alphabetically
+                                studentList.add(i, userStudent);
+                                added = true;
+                                break;
+                            }
+                        }
+
+                        if (!added)
+                            studentList.add(userStudent);
                     }
 
                     catch (IllegalArgumentException e){

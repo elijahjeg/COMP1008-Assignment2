@@ -35,8 +35,20 @@ public class Student extends Person {
         if (!course.matches("^[A-Z]{4}[0-9]{4}$")){ // Ex. COMP1008
             throw new IllegalArgumentException("Invalid course code; it should follow the format: COMP1008");
         }
-        // Valid course code, add it to the students courses
-        courses.add(course);
+
+        boolean added = false;
+        // Valid course code, add it to the students courses, but sort alphabetically
+        for (int i = 0; i < courses.size(); i++){
+            if (courses.get(i).compareTo(course) > 0){ // Above zero, after alphabetically
+                courses.add(i, course);
+                added = true;
+                break;
+            }
+        }
+
+        // This mean its at the end alphabetically (or list is empty)
+        if (!added)
+            courses.add(course);
     }
 
     // Method overloading here to either remove by course code or index
