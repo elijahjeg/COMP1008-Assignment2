@@ -12,9 +12,12 @@ public class Student extends Person {
 
     // Overrides the abstract method
     public String getDetails(){
+        String coursesList = String.join(", ", courses); // Joins the courses list into a comma separated list
+        if (coursesList.isEmpty())
+            coursesList = "None";
         return String.format(
-            "Student %s:\nStudent ID: %s\nEmail Address: %s",
-            getName(), getId(), getEmail()
+            "Student %s:\nStudent ID: %s\nEmail Address: %s\nCourses: %s",
+            getName(), getId(), getEmail(), coursesList
         );
     }
 
@@ -37,12 +40,12 @@ public class Student extends Person {
     }
 
     // Method overloading here to either remove by course code or index
-    public void removeCourse(String course){
-        courses.remove(course);
+    public boolean removeCourse(String course){
+        return courses.remove(course); // Returns true if the course was in the list
     }
 
-    public void removeCourse(int index){
-        courses.remove(index);
+    public String removeCourse(int index){
+        return courses.remove(index); // Returns the removed course code
     }
 
     // Get course by index
