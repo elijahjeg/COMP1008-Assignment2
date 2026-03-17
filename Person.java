@@ -35,7 +35,7 @@ public abstract class Person {
 
     void setId(String id){
         String idRegex = getIdRegex();
-        String idFormat = idRegex.substring(0, 2) + "1234";// Either I- or S- then 1234
+        String idFormat = idRegex.substring(1, 3) + "1234";// Either I- or S- then 1234
 
         if (!id.matches(getIdRegex())){ // Use abstract method since format could be S-1234 or I-1234
             throw new IllegalArgumentException(
