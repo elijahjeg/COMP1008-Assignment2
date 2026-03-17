@@ -78,6 +78,7 @@ class Main {
                         userId = scanner.nextLine().trim();
                     }                    
 
+                    // Don't use getStudent() here because we need the index to remove it from the list
                     boolean found = false;
                     for (int i = 0; i < studentList.size(); i++){
                         Student student = studentList.get(i);
@@ -110,30 +111,15 @@ class Main {
                     break;
 
                 case ("4"):
-                    System.out.print("Enter a name or ID to search: ");
-                    String userInput = scanner.nextLine().trim();
-
-                    // If it's empty prompt user again until a value is provided
-                    while(userInput.isEmpty()){
-                        System.out.print("Blank value cannot be accepted. Try again: ");
-                        userInput = scanner.nextLine().trim();
+                    try {
+                        Student student = getStudent(studentList, scanner);
+                        System.out.println("Found student:");
+                        System.out.println(student.getDetails());
+                    }
+                    catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
                     }
 
-                    boolean foundStudent = false;
-
-                    // Loop over the list of students
-                    for (Student student : studentList){
-                        if (student.getName().equals(userInput) || student.getId().equals(userInput)){
-                            System.out.println("Found student:");
-                            System.out.println(student.getDetails());
-                            foundStudent = true;
-                            break;
-                        }
-                    }
-
-                    if (!foundStudent){
-                        System.out.println("No student found with that name or ID");
-                    }
                     break;
                 
                 // Add a course
@@ -147,12 +133,12 @@ class Main {
                         break; // Break so the user can confirm they have the right ID/Name
                     }
                     // Go forever until a valid course code is entered
-                    boolean done = false;
-                    while (!done){
+                    while (true){
                         try {
                             System.out.print("Enter the course code: ");
                             String courseCode = scanner.nextLine().trim();
                             student.addCourse(courseCode);
+                            break;
                         }
                         catch (IllegalArgumentException e){ // Course format is invalid
                             System.out.println(e.getMessage());
@@ -185,8 +171,6 @@ class Main {
             // Loop over the list of students
             for (Student student : studentList){
                 if (student.getName().equals(userInput) || student.getId().equals(userInput)){
-                    System.out.println("Found student:");
-                    System.out.println(student.getDetails());
                     return student;
                 }
             }
