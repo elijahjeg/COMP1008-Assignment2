@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 class Main {
     public static void main (String[] args){
@@ -22,6 +23,9 @@ class Main {
         String id;
         String email;
         Student userStudent;
+
+        // Initialize an ArrayList to store student objects
+        ArrayList<Student> studentList = new ArrayList<Student>();
         while (!stop){
             System.out.println(
                 "Choose one of the following options:\n" +
@@ -38,26 +42,58 @@ class Main {
             switch (option){
                 case ("1"):
                     // Get user input; trim to remove any whitespace
-                    System.out.println("Enter student's name: ");
+                    System.out.print("Enter student's name: ");
                     name = scanner.nextLine().trim();
 
-                    System.out.println("Enter student ID: ");
+                    System.out.print("Enter student ID: ");
                     id = scanner.nextLine().trim();
 
-                    System.out.println("Enter student's email: ");
+                    System.out.print("Enter student's email: ");
                     email = scanner.nextLine().trim();
             
                     try {
                         userStudent = new Student(name, id, email);
-                        stop = true; // We got valid input, now we can display it
+                        // We got valid input, now we can display the new student and add it to the list
                         System.out.println("------------");
                         System.out.println(userStudent.getDetails());
+
+                        studentList.add(userStudent);
                     }
 
                     catch (IllegalArgumentException e){
                         System.out.println(e.getMessage());
                     }
                     break;
+
+                case ("4"):
+                    System.out.print("Enter a name or ID to search: ");
+                    String userInput = scanner.nextLine().trim();
+
+                    // If it's empty prompt user again until a value is provided
+                    while(userInput.isEmpty()){
+                        System.out.print("Blank value cannot be accepted. Try again: ");
+                        userInput = scanner.nextLine().trim();
+                    }
+
+                    System.out.println(studentList);
+                    boolean found = false;
+
+                    // Loop over the list of students
+                    for (Student student : studentList){
+                        System.out.println(userInput);
+                        System.out.println(student.getName() + student.getId());
+
+                        if (student.getName().equals(userInput) || student.getId().equals(userInput)){
+                            System.out.println("Found student:");
+                            System.out.println(student.getDetails());
+                            found = true;
+                        }
+                    }
+                    if (!found){
+                        System.out.println("No student found with that name or ID");
+                    }
+                    break;
+
                 default: // If anything other than a valid option is entered let the user know
                     System.out.println("You must enter an option between 1 and 5");
             }
