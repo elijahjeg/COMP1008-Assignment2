@@ -135,6 +135,11 @@ class Main {
                     }
                     break;
 
+                // Quit
+                case ("5"):
+                    System.out.println("Quitting...");
+                    stop = true; // Set stop to true to end the while loop
+                    break;
                 default: // If anything other than a valid option is entered let the user know
                     System.out.println("You must enter an option between 1 and 5");
             }
