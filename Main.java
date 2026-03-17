@@ -33,7 +33,8 @@ class Main {
                 "   [2] Remove a student by ID\n" +
                 "   [3] Display all students\n" +
                 "   [4] Search a student by ID or name\n" +
-                "   [5] Quit"
+                "   [5] Add a course to a student's courses\n" +
+                "   [6] Quit"
             );
             
             // Trim any whitespace
@@ -134,9 +135,33 @@ class Main {
                         System.out.println("No student found with that name or ID");
                     }
                     break;
-
-                // Quit
+                
+                // Add a course
                 case ("5"):
+                    Student student;
+                    try {
+                        student = getStudent(studentList, scanner);
+                        }
+                    catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                        break; // Break so the user can confirm they have the right ID/Name
+                    }
+                    // Go forever until a valid course code is entered
+                    boolean done = false;
+                    while (!done){
+                        try {
+                            System.out.print("Enter the course code: ");
+                            String courseCode = scanner.nextLine().trim();
+                            student.addCourse(courseCode);
+                        }
+                        catch (IllegalArgumentException e){ // Course format is invalid
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+                    System.out.println(String.format("Added course to %s's list of courses.", student.getName()));
+                // Quit
+                case ("6"):
                     System.out.println("Quitting...");
                     stop = true; // Set stop to true to end the while loop
                     break;
@@ -144,5 +169,29 @@ class Main {
                     System.out.println("You must enter an option between 1 and 5");
             }
         }
+    }
+
+
+    static Student getStudent(ArrayList<Student> studentList, Scanner scanner){
+            System.out.print("Enter a name or ID to search: ");
+            String userInput = scanner.nextLine().trim();
+
+            // If it's empty prompt user again until a value is provided
+            while(userInput.isEmpty()){
+                System.out.print("Blank value cannot be accepted. Try again: ");
+                userInput = scanner.nextLine().trim();
+            }
+
+            // Loop over the list of students
+            for (Student student : studentList){
+                if (student.getName().equals(userInput) || student.getId().equals(userInput)){
+                    System.out.println("Found student:");
+                    System.out.println(student.getDetails());
+                    return student;
+                }
+            }
+
+            // If student is not found, raise an exception that will be handled in main
+            throw new IllegalArgumentException("No student found with that name or ID");
     }
 }
