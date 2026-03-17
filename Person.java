@@ -4,7 +4,6 @@ public abstract class Person {
     private String id;
     private String email;
 
-
     // Define fields in constructor using setter methods
     Person(String name, String id, String email){
         setName(name);
@@ -35,8 +34,13 @@ public abstract class Person {
     }
 
     void setId(String id){
-        if (!id.matches("S-\\d{4}")){
-            throw new IllegalArgumentException("ID must match the the following format: 'S-1234'");
+        String idRegex = getIdRegex();
+        String idFormat = idRegex.substring(0, 1) + "1234";// Either I- or S- then 1234
+
+        if (!id.matches(getIdRegex())){ // Use abstract method since format could be S-1234 or I-1234
+            throw new IllegalArgumentException(
+                "ID must match the the following format: '" + idFormat + "'"
+            );
         }
         this.id = id;
     } 
@@ -51,4 +55,8 @@ public abstract class Person {
 
     // Abstract method will be implemented in subclasses
     public abstract String getDetails();
+
+    // Abstract protected method to determine the regex for ID
+    protected abstract String getIdRegex();
+
 }
