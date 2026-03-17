@@ -40,6 +40,7 @@ class Main {
             String option = scanner.nextLine().trim();
 
             switch (option){
+                // Add a new student
                 case ("1"):
                     // Get user input; trim to remove any whitespace
                     System.out.print("Enter student's name: ");
@@ -65,6 +66,32 @@ class Main {
                     }
                     break;
 
+                // Remove a student by ID
+                case ("2"):
+                    System.out.print("Enter an ID to remove: ");
+                    String userId = scanner.nextLine().trim();
+
+                     // If it's empty prompt user again until a value is provided
+                    while(userId.isEmpty()){
+                        System.out.print("Blank value cannot be accepted. Try again: ");
+                        userId = scanner.nextLine().trim();
+                    }                    
+
+                    boolean found = false;
+                    for (int i = 0; i < studentList.size(); i++){
+                        Student student = studentList.get(i);
+                        if (student.getId().equals(userId)){
+                            studentList.remove(i);
+                            System.out.println("Student successfully removed");
+                            found = true;
+                        }
+                    }
+
+                    if (!found){
+                        System.out.println("No student found with that ID");
+                    }
+                    break;
+
                 case ("4"):
                     System.out.print("Enter a name or ID to search: ");
                     String userInput = scanner.nextLine().trim();
@@ -75,21 +102,19 @@ class Main {
                         userInput = scanner.nextLine().trim();
                     }
 
-                    System.out.println(studentList);
-                    boolean found = false;
+                    boolean foundStudent = false;
 
                     // Loop over the list of students
                     for (Student student : studentList){
-                        System.out.println(userInput);
-                        System.out.println(student.getName() + student.getId());
-
                         if (student.getName().equals(userInput) || student.getId().equals(userInput)){
                             System.out.println("Found student:");
                             System.out.println(student.getDetails());
-                            found = true;
+                            foundStudent = true;
+                            break;
                         }
                     }
-                    if (!found){
+
+                    if (!foundStudent){
                         System.out.println("No student found with that name or ID");
                     }
                     break;
