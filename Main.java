@@ -26,7 +26,7 @@ class Main {
 
         // Initialize an ArrayList to store student objects
         ArrayList<Student> studentList = new ArrayList<Student>();
-        while (!stop){
+        while (!stop){ // Loop until stop is equal to false
             System.out.println(
                 "Choose one of the following options:\n" +
                 "   [1] Add a new student\n" +
@@ -112,6 +112,7 @@ class Main {
                     break;
 
                 case ("4"):
+                    // Try to get the student, if the method raises an error show the message to the user
                     try {
                         Student student = getStudent(studentList, scanner);
                         System.out.println("Found student:");
@@ -125,6 +126,7 @@ class Main {
                 
                 // Add a course
                 case ("5"):
+                    // Try to get the student with the helper method, if not found print to console
                     Student student;
                     try {
                         student = getStudent(studentList, scanner);
@@ -146,6 +148,7 @@ class Main {
                         }
                     }
 
+                    // Course successfully added
                     System.out.println(String.format("Added course to %s's list of courses.", student.getName()));
                     break;
                 
@@ -181,10 +184,13 @@ class Main {
                         System.out.println(String.format("%s was not found in %s's list of courses.", courseCode, studentCourseRemove.getName()));
 
                     break;
+
                 // Quit
                 case ("7"):
                     System.out.println("Quitting...");
                     stop = true; // Set stop to true to end the while loop
+                    // Close the scanner when we're done
+                    scanner.close();
                     break;
                 default: // If anything other than a valid option is entered let the user know
                     System.out.println("You must enter an option between 1 and 5");
