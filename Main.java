@@ -91,6 +91,22 @@ class Main {
                         System.out.println("No student found with that ID");
                     }
                     break;
+                
+                // Display all students
+                case ("3"):
+                    if (studentList.isEmpty()){
+                        System.out.println("There are no student entries.");
+                    }
+
+                    else {
+                         System.out.println("---------\n");
+                        for (Student student : studentList){
+                            System.out.println(student.getDetails());
+                            System.out.println("\n---------");
+                        }
+                    }
+
+                    break;
 
                 case ("4"):
                     System.out.print("Enter a name or ID to search: ");
