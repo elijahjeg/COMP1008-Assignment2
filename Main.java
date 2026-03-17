@@ -23,25 +23,43 @@ class Main {
         String email;
         Student userStudent;
         while (!stop){
-            // Get user input; trim to remove any whitespace
-            System.out.println("Enter student's name: ");
-            name = scanner.nextLine().trim();
+            System.out.println(
+                "Choose one of the following options:\n" +
+                "   [1] Add a new student\n" +
+                "   [2] Remove a student by ID\n" +
+                "   [3] Display all students\n" +
+                "   [4] Search a student by ID or name\n" +
+                "   [5] Quit"
+            );
+            
+            // Trim any whitespace
+            String option = scanner.nextLine().trim();
 
-            System.out.println("Enter student ID: ");
-            id = scanner.nextLine().trim();
+            switch (option){
+                case ("1"):
+                    // Get user input; trim to remove any whitespace
+                    System.out.println("Enter student's name: ");
+                    name = scanner.nextLine().trim();
 
-            System.out.println("Enter student's email: ");
-            email = scanner.nextLine().trim();
-    
-            try {
-                userStudent = new Student(name, id, email);
-                stop = true; // We got valid input, now we can display it
-                System.out.println("------------");
-                System.out.println(userStudent.getDetails());
-            }
+                    System.out.println("Enter student ID: ");
+                    id = scanner.nextLine().trim();
 
-            catch (IllegalArgumentException e){
-                System.out.println(e.getMessage());
+                    System.out.println("Enter student's email: ");
+                    email = scanner.nextLine().trim();
+            
+                    try {
+                        userStudent = new Student(name, id, email);
+                        stop = true; // We got valid input, now we can display it
+                        System.out.println("------------");
+                        System.out.println(userStudent.getDetails());
+                    }
+
+                    catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                default: // If anything other than a valid option is entered let the user know
+                    System.out.println("You must enter an option between 1 and 5");
             }
         }
     }
