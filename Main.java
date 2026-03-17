@@ -34,7 +34,8 @@ class Main {
                 "   [3] Display all students\n" +
                 "   [4] Search a student by ID or name\n" +
                 "   [5] Add a course to a student's courses\n" +
-                "   [6] Quit"
+                "   [6] Drop a student's course\n" +
+                "   [7] Quit"
             );
             
             // Trim any whitespace
@@ -146,8 +147,42 @@ class Main {
                     }
 
                     System.out.println(String.format("Added course to %s's list of courses.", student.getName()));
-                // Quit
+                    break;
+                
+                // Remove a student's course
                 case ("6"):
+                    // To avoid duplicate variables
+                    Student studentCourseRemove;
+                    try {
+                        studentCourseRemove = getStudent(studentList, scanner);
+                        }
+                    catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                        break; // Break so the user can confirm they have the right ID/Name
+                    }
+                    // Go forever until a valid course code is entered
+                    String courseCode;
+                    boolean removed = false;
+                    while (true){
+                        try {
+                            System.out.print("Enter the course code: ");
+                            courseCode = scanner.nextLine().trim();
+                            removed = studentCourseRemove.removeCourse(courseCode);
+                            break;
+                        }
+                        catch (IllegalArgumentException e){ // Course format is invalid
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+                    if (removed)
+                        System.out.println(String.format("Dropped %s from %s's list of courses.", courseCode, studentCourseRemove.getName()));
+                    else
+                        System.out.println(String.format("%s was not found in %s's list of courses.", courseCode, studentCourseRemove.getName()));
+
+                    break;
+                // Quit
+                case ("7"):
                     System.out.println("Quitting...");
                     stop = true; // Set stop to true to end the while loop
                     break;

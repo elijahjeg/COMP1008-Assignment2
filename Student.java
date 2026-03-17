@@ -23,7 +23,7 @@ public class Student extends Person {
 
     // Regex implementation for student IDs
     protected String getIdRegex(){
-        return "S-\\d{4}";
+        return "^S-\\d{4}$";
     }
 
     public ArrayList<String> getCourses(){
@@ -32,7 +32,7 @@ public class Student extends Person {
 
     public void addCourse(String course){
         course = course.toUpperCase(); // So it's case insensitive
-        if (!course.matches("[A-Z]{4}[0-9]{4}")){ // Ex. COMP1008
+        if (!course.matches("^[A-Z]{4}[0-9]{4}$")){ // Ex. COMP1008
             throw new IllegalArgumentException("Invalid course code; it should follow the format: COMP1008");
         }
         // Valid course code, add it to the students courses

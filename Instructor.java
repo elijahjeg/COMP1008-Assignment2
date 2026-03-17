@@ -14,6 +14,6 @@ public class Instructor extends Person {
 
     // Regex implementation for instructor IDs
     protected String getIdRegex(){
-        return "I-\\d{4}";
+        return "^I-\\d{4}$";
     }
 }
